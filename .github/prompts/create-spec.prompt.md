@@ -18,6 +18,12 @@ Produce the spec using this structure:
 
 # [Capability or Experiment Name]
 
+---
+**Status:** Draft
+**Created:** YYYY-MM-DD
+**Updated:** YYYY-MM-DD
+---
+
 ## Outcome
 Describe the concrete outcome that should be expected.
 
