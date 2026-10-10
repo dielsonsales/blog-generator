@@ -5,6 +5,7 @@
 Keep this project a small, understandable static blog generator. Blog posts are
 written in Markdown and generated pages are ordinary static HTML. Prefer a few
 transparent tools over a large framework or runtime dependency stack.
+The original idea for this blog is documented in `docs/001-original-idea.md`.
 
 This repository is at the design and setup stage. The generator and its build
 commands have not been implemented yet.
