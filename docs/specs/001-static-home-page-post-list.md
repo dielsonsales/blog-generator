@@ -9,37 +9,39 @@
 
 ## Outcome
 
-A build turns Markdown posts into static HTML pages and generates
-`public/index.html` with a deterministic list of links to those pages. Authors
-can add a post and rebuild without editing the home page by hand.
+A build turns Markdown posts with YAML front matter into static HTML pages and
+generates `public/index.html` with a deterministic list of links to those pages.
+Authors can add a post and rebuild without editing the home page by hand.
 
 ## Problem
 
-The project has no generator yet, so there is no established path from Markdown
-source files to a usable home page. It is not yet validated that a small POSIX
-shell build can create both post pages and the list while keeping the source and
-generated output separate.
+The project has no generator yet, so there is no established path from its
+existing Markdown posts and YAML front matter to usable post pages and a home
+page. It is not yet validated that a small POSIX shell build can create both
+while keeping the source and generated output separate.
 
 ## Hypothesis
 
-A POSIX shell script can convert a small set of Markdown files and generate a
-useful home page using each post's filename as its URL slug and its first-level
-heading as its displayed title. This avoids introducing metadata parsing or a
-larger generator framework for the first working slice.
+A POSIX shell script can use Pandoc's YAML metadata support to generate post
+pages and a useful home page from the Markdown files already stored directly in
+`content/`. The metadata fields `title` and `date` provide displayed post
+information, while `tags` can be shown on each post without requiring a larger
+generator framework.
 
 ## Scope
 
-- Read Markdown posts from `content/posts/`.
-- Require each post to begin with a first-level Markdown heading (`# Title`).
-- Generate a corresponding page at `public/posts/<filename>.html`.
-- Generate `public/index.html` with links to all posts, sorted by filename.
+- Read Markdown posts from `content/*.md`.
+- Require YAML front matter with a non-empty `title` and `date`; accept an
+optional list of `tags`.
+- Generate a corresponding page at `public/<filename>.html` using the title,
+date, tags, and converted Markdown body.
+- Generate `public/index.html` with links and dates for all posts, sorted by
+filename.
 - Produce a clear empty state when there are no posts.
-- Provide Make targets to build and clean the generated site; include local
-preview only if it remains a small addition to the same workflow.
+- Provide Make targets to build and clean the generated site.
 
 ## Out of Scope
 
-- YAML front matter or other post metadata, including dates and tags.
 - Tag pages, filtering, pagination, search, RSS, comments, or client-side
 behavior.
 - Incremental builds, themes, multiple page layouts, or deployment automation.
@@ -63,57 +65,60 @@ or third-party tracking.
 ## Proposed Change
 
 Add the smallest generator slice using the existing project intent documented in
-`README.md`, `AGENTS.md`, and `docs/001-original-idea.md`. Add a representative
-post under `content/posts/`, a shared page template, a POSIX shell build script,
-and Make targets for building and cleaning.
+`README.md`, `AGENTS.md`, and `docs/001-original-idea.md`. Use the existing
+`content/post-title.md` post as the representative input, add a shared page
+template, a POSIX shell build script, and Make targets for building and
+cleaning.
 
-The data flow is: enumerate `content/posts/*.md` in filename order, read the
-first-level heading as the plain-text title, convert the Markdown to HTML, write
-the post page under `public/posts/`, and write a link for that post into
-`public/index.html`. The title appears in the generated index; the Markdown
-converter handles the post body. YAML front matter is not part of the input
-format for this experiment.
+The data flow is: enumerate `content/*.md` in filename order, let Pandoc read
+each post's YAML front matter, convert its Markdown body to HTML, and render the
+post page and home-page entry from the metadata and converted content. Use
+`title` and `date` in the post page and index; show `tags` on the post page when
+present. Use the source filename (without `.md`) as the output page slug. Do not
+parse YAML by extracting values with shell text substitutions.
 
 There is no interactive UI, cancellation flow, or permission prompt. A build
-failure, including a missing converter, missing title, or unwritable output
-directory, must exit unsuccessfully with a useful diagnostic rather than report
-success.
+failure, including a missing converter, malformed front matter, missing
+required metadata, or an unwritable output directory, must exit unsuccessfully
+with a useful diagnostic rather than report success.
 
 ## Acceptance Criteria
 
-- [ ] Given a valid Markdown post with a first-level heading and basic
-formatting, when the site is built, then its static page contains the converted
-content and `public/index.html` links to it using the heading text.
+- [ ] Given a Markdown post with valid YAML front matter containing `title` and
+`date`, when the site is built, then its static page displays those values and
+the converted body, and `public/index.html` links to it using the title and
+shows its date.
+- [ ] Given a post with a `tags` list, when its page is generated, then the tags
+are displayed there and no tag pages or filtering are generated.
 - [ ] Given multiple valid posts, when the site is built repeatedly, then the
 home-page links appear in filename order and the generated output is
 reproducible.
 - [ ] Given no Markdown posts, when the site is built, then `public/index.html`
 is generated with a clear empty-state message and the build succeeds.
-- [ ] Given a post without a first-level heading, when the site is built, then
-the build fails with a diagnostic identifying the invalid post.
+- [ ] Given a post with malformed YAML front matter or without a required
+`title` or `date`, when the site is built, then the build fails with a
+diagnostic identifying the invalid post and missing or malformed metadata.
 - [ ] Given the Markdown converter is unavailable, when the site is built, then
 the build fails with a useful installation or dependency message.
 - [ ] Given the output directory cannot be written, when the site is built, then
 the build fails and does not report a successful build.
-- [ ] Given a post contains YAML front matter, when this version of the build
-processes it, then it is not interpreted as metadata; metadata support remains
-deferred.
 
 ## Validation Plan
 
-Run the build from a clean output directory using a representative Markdown post
-with a title and basic formatting. Inspect the generated page and home-page
-link, then rebuild and compare the output for determinism. Also run the
-empty-posts case, the missing-title case, and a build with the converter
-unavailable to verify the empty state and failure diagnostics. No device checks
-are needed because the output is a static website with no device-specific
-behavior.
+Run the build from a clean output directory using the existing post, which has
+`title` and `date` metadata and representative Markdown formatting. Inspect the
+generated page, rendered tags when present, and home-page link; then rebuild and
+compare the output for determinism. Also run the empty-posts case, cases with
+missing required metadata and malformed front matter, and a build with the
+converter unavailable to verify the empty state and failure diagnostics. No
+device checks are needed because the output is a static website with no
+device-specific behavior.
 
 ## Risks and Open Questions
 
-- The first-heading title convention is intentionally temporary; adding front
-matter later will require defining how metadata titles relate to headings.
-- Filename ordering is predictable but may not match desired publication order.
-A date-based order can be considered when date metadata is introduced.
-- The exact Markdown converter and its HTML output conventions remain to be
-selected during implementation.
+- Filename ordering is predictable but may not match publication order; this
+experiment deliberately avoids date sorting to keep the build deterministic
+without adding date parsing and ordering complexity.
+- Confirm the date display format and whether tags should appear on the home
+page in a later iteration; this spec limits tag display to individual post
+pages.
