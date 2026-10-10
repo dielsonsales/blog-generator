@@ -1,5 +1,12 @@
 # Static Home Page Post List
 
+---
+**Status:** Draft
+**Created:** 2026-10-10
+**Updated:** 2026-10-10
+---
+
+
 ## Outcome
 
 A build turns Markdown posts into static HTML pages and generates
