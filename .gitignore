@@ -1,5 +1,8 @@
 # macOS
 *.DS_Store
 
-# Temporary files
-content/
+# User files
+content/*.md
+
+# Generated site
+public/
