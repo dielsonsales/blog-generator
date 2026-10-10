@@ -50,11 +50,24 @@ pandoc --version
 The version command confirms that Pandoc is installed and available on your
 `PATH`.
 
-## Intended Workflow
+## Build
 
-The planned workflow is to add a Markdown file under `content/`, build the
-site with Make, and publish the generated files from `public/`. A local preview
-target is also planned. These commands are not available yet.
+Add Markdown posts with `title` and `date` YAML front matter under `content/`,
+then build the site:
+
+```sh
+make build
+```
+
+The generated home page and post pages are written to `public/`. Remove the
+generated site with:
+
+```sh
+make clean
+```
+
+Pandoc reports an error if a post is missing its required metadata. Optional
+`tags` metadata is displayed on the post page.
 
 ## Design Notes
 
