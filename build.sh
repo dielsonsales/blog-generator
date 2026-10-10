@@ -16,6 +16,10 @@ fi
 
 rm -rf public
 mkdir -p public
+if ! cp templates/site.css public/site.css; then
+    printf '%s\n' 'Error: unable to copy templates/site.css to public/site.css.' >&2
+    exit 1
+fi
 cat templates/index-header.html > public/index.html
 
 set -- content/*.md
