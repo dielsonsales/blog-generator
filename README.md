@@ -37,8 +37,18 @@ aims to avoid a large language-specific dependency tree, not to pretend that
 Markdown conversion requires no software. A Python 3 local server may be used
 for previewing generated pages, but it is not needed to build or host them.
 
-Installation instructions and exact version requirements will be documented
-once the build implementation is in place.
+### macOS Setup
+
+Install [Homebrew](https://brew.sh/) if it is not already available, then
+install Pandoc:
+
+```sh
+brew install pandoc
+pandoc --version
+```
+
+The version command confirms that Pandoc is installed and available on your
+`PATH`.
 
 ## Intended Workflow
 
