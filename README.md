@@ -22,6 +22,7 @@ content/       Markdown source posts
 templates/     Shared HTML page fragments
 public/        Generated site output
 build.sh       Site generation script
+serve.sh       Local preview server and browser launcher
 Makefile       Build, clean, and local preview targets
 ```
 
@@ -68,6 +69,20 @@ make clean
 
 Pandoc reports an error if a post is missing its required metadata. Optional
 `tags` metadata is displayed on the post page.
+
+## Preview
+
+Build the site and serve it locally with Python 3:
+
+```sh
+make serve
+```
+
+The target attempts to open `http://127.0.0.1:8000` in your browser, using
+`open` or the `xdg-open` fallback. If neither can launch a browser, it prints
+the URL for you to open manually. The server runs in the foreground; press
+Ctrl-C to stop it. This target requires Pandoc to build the site and Python 3
+to serve it.
 
 ## Design Notes
 

@@ -1,4 +1,4 @@
-.PHONY: all build clean
+.PHONY: all build clean serve
 
 all: build
 
@@ -7,3 +7,6 @@ build:
 
 clean:
 	rm -rf public
+
+serve: build
+	sh ./serve.sh
