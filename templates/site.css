@@ -75,10 +75,17 @@ blockquote {
 pre {
   max-width: 100%;
   overflow-x: auto;
+  font-size: 0.9rem; /* monospace fonts can look too large otherwise */
+}
+
+pre code {
+  font-size: inherit;
 }
 
 img,
 video {
+  display: block;
   height: auto;
+  margin-inline: auto;
   max-width: 100%;
 }
