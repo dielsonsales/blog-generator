@@ -1,7 +1,9 @@
 (() => {
   const storageKey = "blog-font-style";
+  const themeStorageKey = "blog-theme";
   const supportedStyles = new Set(["default", "serif", "mono"]);
   const controls = document.querySelectorAll("[data-font-style]");
+  const themeToggle = document.querySelector("[data-theme-toggle]");
 
   function applyFontStyle(style) {
     if (!supportedStyles.has(style)) {
@@ -22,6 +24,36 @@
   }
   applyFontStyle(savedStyle);
 
+  let savedTheme = "light";
+  try {
+    savedTheme = window.localStorage.getItem(themeStorageKey) || savedTheme;
+  } catch {
+    // Storage can be unavailable in restricted browser contexts.
+  }
+
+  function applyTheme(theme) {
+    const isDark = theme === "dark";
+    document.documentElement.dataset.theme = isDark ? "dark" : "light";
+    if (themeToggle) {
+      themeToggle.checked = isDark;
+    }
+  }
+
+  applyTheme(savedTheme);
+
+  if (themeToggle) {
+    themeToggle.addEventListener("change", () => {
+      const theme = themeToggle.checked ? "dark" : "light";
+      applyTheme(theme);
+
+      try {
+        window.localStorage.setItem(themeStorageKey, theme);
+      } catch {
+        // The theme still applies for the current page.
+      }
+    });
+  }
+
   controls.forEach((control) => {
     control.addEventListener("click", () => {
       const style = control.dataset.fontStyle;
@@ -33,11 +65,6 @@
         // The font choice still applies for the current page.
       }
 
-      const picker = control.closest("details");
-      if (picker) {
-        picker.open = false;
-        picker.querySelector("summary").focus();
-      }
     });
   });
 })();
