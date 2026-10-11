@@ -10,33 +10,7 @@
   <header>
     <div class="site-header-content">
       <h1 class="site-title">$site-name$</h1>
-      <details class="font-picker">
-        <summary aria-label="Choose font style" title="Choose font style">...</summary>
-        <div class="font-picker-menu">
-          <h2 class="font-picker-title">Font style</h2>
-          <div class="font-options" role="group" aria-label="Font style">
-            <button type="button" class="font-option" data-font-style="default" aria-pressed="true">
-              <span class="font-sample font-sample--default" aria-hidden="true">Ag</span>
-              <span>Default</span>
-            </button>
-            <button type="button" class="font-option" data-font-style="serif" aria-pressed="false">
-              <span class="font-sample font-sample--serif" aria-hidden="true">Ag</span>
-              <span>Serif</span>
-            </button>
-            <button type="button" class="font-option" data-font-style="mono" aria-pressed="false">
-              <span class="font-sample font-sample--mono" aria-hidden="true">Ag</span>
-              <span>Mono</span>
-            </button>
-          </div>
-          <section class="appearance-settings" aria-labelledby="appearance-heading">
-            <h3 id="appearance-heading">Appearance</h3>
-            <label class="theme-setting" for="theme-toggle">
-              <span>Dark theme</span>
-              <input id="theme-toggle" type="checkbox" role="switch" data-theme-toggle>
-            </label>
-          </section>
-        </div>
-      </details>
+      $font-picker$
     </div>
   </header>
   <main>

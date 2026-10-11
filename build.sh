@@ -29,6 +29,11 @@ if ! cp templates/font-picker.js public/font-picker.js; then
     printf '%s\n' 'Error: unable to copy templates/font-picker.js to public/font-picker.js.' >&2
     exit 1
 fi
+if [ ! -f templates/font-picker.html ]; then
+    printf '%s\n' 'Error: templates/font-picker.html not found.' >&2
+    exit 1
+fi
+font_picker=$(cat templates/font-picker.html)
 if [ -d content/images ]; then
     if ! cp -R content/images public/; then
         printf '%s\n' 'Error: unable to copy content/images to public/images.' >&2
@@ -41,6 +46,7 @@ if ! printf '%s\n' '' | pandoc \
     --standalone \
     --template=templates/index-header.html \
     --metadata-file=config.yaml \
+    --variable="font-picker:$font_picker" \
     --output=public/index.html; then
     printf '%s\n' 'Error: unable to render templates/index-header.html.' >&2
     exit 1
@@ -71,6 +77,7 @@ else
             --syntax-highlighting=pygments \
             --metadata-file=config.yaml \
             --lua-filter=filters/validate-metadata.lua \
+            --variable="font-picker:$font_picker" \
             --output="public/$slug.html" \
             "$post"
 
