@@ -16,6 +16,8 @@ idea is documented in `docs/001-original-idea.md`.
   are optional. Pandoc reads the metadata, and the Lua filter in
   `filters/validate-metadata.lua` checks required fields.
 - The source filename, without `.md`, is the post URL slug.
+- Post images live in `content/images/`. The build copies them to
+  `public/images/` so generated HTML can reference them.
 - `build.sh` reads posts in filename order, renders each post using
   `templates/post.html`, and builds `public/index.html` using the index
   templates. The home page contains a list of post links and shows an empty

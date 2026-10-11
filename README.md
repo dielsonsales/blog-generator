@@ -27,12 +27,14 @@ simple HTML, and maintain full control over your site.
 ## 📂 Project Structure
 
 ```text
-content/       Markdown source posts
-templates/     Shared HTML page fragments
-public/        Generated site output
-build.sh       Site generation script
-serve.sh       Local preview server and browser launcher
-Makefile       Build, clean, and local preview targets
+content/          Markdown source posts
+content/images/   Post images (copied to public/images/)
+templates/        Shared HTML page fragments
+public/           Generated site output
+config.yaml       Local site settings (ignored by Git)
+build.sh          Site generation script
+serve.sh          Local preview server and browser launcher
+Makefile          Build, clean, and local preview targets
 ```
 
 ## 📖 Usage
@@ -45,8 +47,9 @@ build the site:
 make build
 ```
 
-The generated home page and post pages are written to `public/`. To remove the
-generated site, run:
+The generated home page and post pages are written to `public/`. Any images in
+`content/images/` that a post references are copied to `public/images/` during
+the build. To remove the generated site, run:
 
 ```sh
 make clean
