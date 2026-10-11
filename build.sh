@@ -25,6 +25,10 @@ if ! cp templates/site.css public/site.css; then
     printf '%s\n' 'Error: unable to copy templates/site.css to public/site.css.' >&2
     exit 1
 fi
+if ! cp templates/font-picker.js public/font-picker.js; then
+    printf '%s\n' 'Error: unable to copy templates/font-picker.js to public/font-picker.js.' >&2
+    exit 1
+fi
 if [ -d content/images ]; then
     if ! cp -R content/images public/; then
         printf '%s\n' 'Error: unable to copy content/images to public/images.' >&2
