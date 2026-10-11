@@ -64,6 +64,7 @@ else
             --to=html5 \
             --standalone \
             --template=templates/post.html \
+            --syntax-highlighting=pygments \
             --metadata-file=config.yaml \
             --lua-filter=filters/validate-metadata.lua \
             --output="public/$slug.html" \
