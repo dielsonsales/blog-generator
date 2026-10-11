@@ -39,6 +39,16 @@ Makefile          Build, clean, and local preview targets
 
 ## 📖 Usage
 
+### Site Configuration
+Create a local `config.yaml` in the project root:
+
+```yaml
+site-name: "Name of your Blog"
+```
+
+The build uses `site-name` in the home page and post pages. The config file is
+ignored by Git.
+
 ### Building
 Add posts with YAML front matter (`title` and `date`) under `content/`, then
 build the site:

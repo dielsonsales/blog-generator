@@ -14,6 +14,11 @@ if [ ! -d content ]; then
     exit 1
 fi
 
+if [ ! -f config.yaml ]; then
+    printf '%s\n' 'Error: config.yaml not found. Create it with a site-name setting.' >&2
+    exit 1
+fi
+
 rm -rf public
 mkdir -p public
 if ! cp templates/site.css public/site.css; then
@@ -26,7 +31,16 @@ if [ -d content/images ]; then
         exit 1
     fi
 fi
-cat templates/index-header.html > public/index.html
+if ! printf '%s\n' '' | pandoc \
+    --from=markdown \
+    --to=html5 \
+    --standalone \
+    --template=templates/index-header.html \
+    --metadata-file=config.yaml \
+    --output=public/index.html; then
+    printf '%s\n' 'Error: unable to render templates/index-header.html.' >&2
+    exit 1
+fi
 
 set -- content/*.md
 if [ ! -f "$1" ]; then
@@ -50,6 +64,7 @@ else
             --to=html5 \
             --standalone \
             --template=templates/post.html \
+            --metadata-file=config.yaml \
             --lua-filter=filters/validate-metadata.lua \
             --output="public/$slug.html" \
             "$post"
@@ -59,6 +74,7 @@ else
             --to=html5 \
             --standalone \
             --template=templates/index-entry.html \
+            --metadata-file=config.yaml \
             --lua-filter=filters/validate-metadata.lua \
             --variable="slug:$slug" \
             --output=- \

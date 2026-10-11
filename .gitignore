@@ -4,6 +4,7 @@
 # User files
 content/*.md
 content/images/
+config.yaml
 
 # Generated site
 public/
