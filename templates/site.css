@@ -23,8 +23,7 @@ header {
   padding: 1.5rem 0 1rem;
 }
 
-header > a,
-header > .site-title,
+.site-header-content,
 footer > a {
   display: block;
   max-width: 70ch;
