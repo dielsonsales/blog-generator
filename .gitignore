@@ -3,6 +3,7 @@
 
 # User files
 content/*.md
+content/images/
 
 # Generated site
 public/

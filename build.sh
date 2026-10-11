@@ -20,6 +20,12 @@ if ! cp templates/site.css public/site.css; then
     printf '%s\n' 'Error: unable to copy templates/site.css to public/site.css.' >&2
     exit 1
 fi
+if [ -d content/images ]; then
+    if ! cp -R content/images public/; then
+        printf '%s\n' 'Error: unable to copy content/images to public/images.' >&2
+        exit 1
+    fi
+fi
 cat templates/index-header.html > public/index.html
 
 set -- content/*.md
