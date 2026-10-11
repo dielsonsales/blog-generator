@@ -46,7 +46,7 @@ set -- content/*.md
 if [ ! -f "$1" ]; then
     cat templates/index-empty.html >> public/index.html
 else
-    for post in "$@"; do
+    printf '%s\n' "$@" | sort -r | while IFS= read -r post; do
         [ -f "$post" ] || continue
 
         filename=${post##*/}

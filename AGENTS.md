@@ -18,7 +18,8 @@ idea is documented in `docs/001-original-idea.md`.
 - The source filename, without `.md`, is the post URL slug.
 - Post images live in `content/images/`. The build copies them to
   `public/images/` so generated HTML can reference them.
-- `build.sh` reads posts in filename order, renders each post using
+- `build.sh` processes date-prefixed post filenames in descending order, so
+  newer posts appear first in the home-page list. It renders each post using
   `templates/post.html`, and builds `public/index.html` using the index
   templates. The home page contains a list of post links and shows an empty
   state when there are no posts.
@@ -43,7 +44,8 @@ idea is documented in `docs/001-original-idea.md`.
 - Keep templates and metadata handling small and transparent. Do not parse YAML
   using shell text substitutions or insert unescaped values into HTML.
 - Keep output deterministic from the local Markdown inputs and tracked build
-  files. Use filename ordering unless the requested feature changes that policy.
+  files. Keep date-prefixed posts in descending filename order so newer posts
+  appear first.
 - Keep documentation synchronized with implemented commands, dependencies,
   metadata conventions, and directory layout.
 
@@ -51,7 +53,7 @@ idea is documented in `docs/001-original-idea.md`.
 
 For build changes, run `make clean` followed by `make build` with Pandoc
 installed. Check generated post and index HTML, including title, date, optional
-tags, and filename ordering. Also verify the empty-post state, useful failures
+tags, and newest-first post ordering. Also verify the empty-post state, useful failures
 for missing Pandoc or invalid required metadata, and reproducibility across
 repeated builds. Do not introduce a test framework for this small build without
 a concrete need.

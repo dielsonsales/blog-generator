@@ -36,7 +36,7 @@ optional list of `tags`.
 - Generate a corresponding page at `public/<filename>.html` using the title,
 date, tags, and converted Markdown body.
 - Generate `public/index.html` with links and dates for all posts, sorted by
-filename.
+filename in descending order so newer date-prefixed posts appear first.
 - Produce a clear empty state when there are no posts.
 - Provide Make targets to build and clean the generated site.
 
@@ -70,7 +70,7 @@ Add the smallest generator slice using the existing project intent documented in
 template, a POSIX shell build script, and Make targets for building and
 cleaning.
 
-The data flow is: enumerate `content/*.md` in filename order, let Pandoc read
+The data flow is: enumerate `content/*.md` in descending filename order, let Pandoc read
 each post's YAML front matter, convert its Markdown body to HTML, and render the
 post page and home-page entry from the metadata and converted content. Use
 `title` and `date` in the post page and index; show `tags` on the post page when
@@ -90,8 +90,8 @@ the converted body, and `public/index.html` links to it using the title and
 shows its date.
 - [ ] Given a post with a `tags` list, when its page is generated, then the tags
 are displayed there and no tag pages or filtering are generated.
-- [ ] Given multiple valid posts, when the site is built repeatedly, then the
-home-page links appear in filename order and the generated output is
+- [ ] Given multiple valid posts with date-prefixed filenames, when the site is
+built repeatedly, then the home-page links appear newest-first and the generated output is
 reproducible.
 - [ ] Given no Markdown posts, when the site is built, then `public/index.html`
 is generated with a clear empty-state message and the build succeeds.
@@ -116,9 +116,9 @@ device-specific behavior.
 
 ## Risks and Open Questions
 
-- Filename ordering is predictable but may not match publication order; this
-experiment deliberately avoids date sorting to keep the build deterministic
-without adding date parsing and ordering complexity.
+- Descending filename ordering is deterministic and matches publication order
+when post filenames begin with their publication dates; it does not sort by
+the date metadata when that differs from the filename.
 - Confirm the date display format and whether tags should appear on the home
 page in a later iteration; this spec limits tag display to individual post
 pages.
