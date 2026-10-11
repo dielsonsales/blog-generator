@@ -21,7 +21,7 @@ Produce the spec using this structure:
 ---
 **Status:** Draft
 **Created:** YYYY-MM-DD
-**Updated:** YYYY-MM-DD
+**Last Updated:** YYYY-MM-DD
 ---
 
 ## Outcome
