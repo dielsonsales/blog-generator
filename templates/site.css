@@ -12,45 +12,34 @@
 }
 
 body {
-  max-width: 70ch;
-  margin: 0 auto;
-  padding: 0 1rem;
+  margin: 0;
 }
 
 header {
-  position: relative;
+  border-bottom: 1px solid #d9dedb;
   padding: 1.5rem 0 1rem;
 }
 
-header::after,
-footer::before {
-  background: #d9dedb;
-  content: "";
-  height: 1px;
-  left: 50%;
-  position: absolute;
-  width: 100vw;
-}
-
-header::after {
-  bottom: 0;
-  transform: translateX(-50%);
+header > a,
+header > .site-title,
+footer > a {
+  display: block;
+  max-width: 70ch;
+  margin-inline: auto;
+  padding-inline: 1rem;
 }
 
 main {
-  padding: 2.5rem 0;
+  max-width: 70ch;
+  margin-inline: auto;
+  padding: 2.5rem 1rem;
 }
 
 footer {
+  border-top: 1px solid #d9dedb;
   color: #555;
   font-size: 0.9rem;
   padding: 1rem 0 1.5rem;
-  position: relative;
-}
-
-footer::before {
-  top: 0;
-  transform: translateX(-50%);
 }
 
 .site-title {
