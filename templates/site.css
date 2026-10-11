@@ -63,6 +63,12 @@ footer > a {
   justify-content: space-between;
 }
 
+.site-header-tools {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
 .font-picker {
   position: relative;
 }

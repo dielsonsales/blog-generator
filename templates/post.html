@@ -14,13 +14,19 @@
   <header>
     <div class="site-header-content">
       <a href="index.html">$site-name$</a>
-      $font-picker$
+      <nav class="site-header-tools" aria-label="Site pages and appearance">
+        $about-link$
+        $font-picker$
+      </nav>
     </div>
   </header>
   <main>
     <article>
       <h1>$title$</h1>
+      $if(page-type)$
+      $else$
       <p class="post-date">$date$</p>
+      $endif$
       $if(tags)$
       <ul class="tags">
         $for(tags)$

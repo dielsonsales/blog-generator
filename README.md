@@ -68,6 +68,11 @@ make clean
 Pandoc reports an error if a post is missing its required metadata. Optional
 `tags` metadata is displayed on the post page.
 
+The reserved `content/about.md` file is rendered as `public/about.html` and
+linked from the site header; it is not included in the home-page post list.
+It uses the same required `title` and `date` metadata as posts, though its date
+is not shown on the page.
+
 ### Previewing
 Build the site and serve it locally with Python 3:
 

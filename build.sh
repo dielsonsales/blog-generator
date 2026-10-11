@@ -34,6 +34,26 @@ if [ ! -f templates/font-picker.html ]; then
     exit 1
 fi
 font_picker=$(cat templates/font-picker.html)
+about_link=
+if [ -f content/about.md ]; then
+    about_link='<a class="about-link" href="about.html">About</a>'
+    if ! pandoc \
+        --from=markdown \
+        --to=html5 \
+        --standalone \
+        --template=templates/post.html \
+        --syntax-highlighting=pygments \
+        --metadata-file=config.yaml \
+        --lua-filter=filters/validate-metadata.lua \
+        --variable="font-picker:$font_picker" \
+        --variable="about-link:$about_link" \
+        --variable=page-type:about \
+        --output=public/about.html \
+        content/about.md; then
+        printf '%s\n' 'Error: unable to render content/about.md.' >&2
+        exit 1
+    fi
+fi
 if [ -d content/images ]; then
     if ! cp -R content/images public/; then
         printf '%s\n' 'Error: unable to copy content/images to public/images.' >&2
@@ -46,6 +66,7 @@ if ! printf '%s\n' '' | pandoc \
     --standalone \
     --template=templates/index-header.html \
     --metadata-file=config.yaml \
+    --variable="about-link:$about_link" \
     --variable="font-picker:$font_picker" \
     --output=public/index.html; then
     printf '%s\n' 'Error: unable to render templates/index-header.html.' >&2
@@ -53,11 +74,19 @@ if ! printf '%s\n' '' | pandoc \
 fi
 
 set -- content/*.md
-if [ ! -f "$1" ]; then
+has_posts=0
+for post do
+    [ -f "$post" ] || continue
+    [ "$post" = content/about.md ] && continue
+    has_posts=1
+done
+
+if [ "$has_posts" -eq 0 ]; then
     cat templates/index-empty.html >> public/index.html
 else
     printf '%s\n' "$@" | sort -r | while IFS= read -r post; do
         [ -f "$post" ] || continue
+        [ "$post" = content/about.md ] && continue
 
         filename=${post##*/}
         slug=${filename%.md}
@@ -78,6 +107,7 @@ else
             --metadata-file=config.yaml \
             --lua-filter=filters/validate-metadata.lua \
             --variable="font-picker:$font_picker" \
+            --variable="about-link:$about_link" \
             --output="public/$slug.html" \
             "$post"
 
