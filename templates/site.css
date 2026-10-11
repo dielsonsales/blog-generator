@@ -12,6 +12,9 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   margin: 0;
 }
 
@@ -30,6 +33,7 @@ footer > a {
 }
 
 main {
+  flex: 1;
   max-width: 70ch;
   margin-inline: auto;
   padding: 2.5rem 1rem;
