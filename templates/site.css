@@ -13,8 +13,29 @@
 
 body {
   max-width: 70ch;
-  margin: 2.5rem auto;
+  margin: 0 auto;
   padding: 0 1rem;
+}
+
+header {
+  border-bottom: 1px solid #d9dedb;
+  padding: 1.5rem 0 1rem;
+}
+
+main {
+  padding: 2.5rem 0;
+}
+
+footer {
+  border-top: 1px solid #d9dedb;
+  color: #555;
+  font-size: 0.9rem;
+  padding: 1rem 0 1.5rem;
+}
+
+.site-title {
+  font-size: 1.2rem;
+  margin: 0;
 }
 
 h1,
