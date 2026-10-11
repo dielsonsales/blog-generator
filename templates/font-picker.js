@@ -29,8 +29,17 @@
   applyTheme(savedTheme);
 
   document.addEventListener("DOMContentLoaded", () => {
+    const picker = document.querySelector(".font-picker");
     const controls = document.querySelectorAll("[data-font-style]");
     const themeToggle = document.querySelector("[data-theme-toggle]");
+
+    if (picker) {
+      document.addEventListener("click", (event) => {
+        if (!picker.contains(event.target)) {
+          picker.open = false;
+        }
+      });
+    }
 
     controls.forEach((control) => {
       control.setAttribute("aria-pressed", String(control.dataset.fontStyle === savedStyle));
