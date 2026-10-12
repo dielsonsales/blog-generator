@@ -52,8 +52,8 @@ idea is documented in `docs/001-original-idea.md`.
 ## Validation
 
 For build changes, run `make clean` followed by `make build` with Pandoc
-installed. Check generated post and index HTML, including title, date, optional
-tags, and newest-first post ordering. Also verify the empty-post state, useful failures
+installed. Check generated post and index HTML, including title, date, that tags
+are not rendered, and newest-first post ordering. Also verify the empty-post state, useful failures
 for missing Pandoc or invalid required metadata, and reproducibility across
 repeated builds. Do not introduce a test framework for this small build without
 a concrete need.

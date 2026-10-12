@@ -66,7 +66,7 @@ make clean
 ```
 
 Pandoc reports an error if a post is missing its required metadata. Optional
-`tags` metadata is displayed on the post page.
+`tags` metadata is accepted but currently ignored.
 
 The reserved `content/about.md` file is rendered as `public/about.html` and
 linked from the site header; it is not included in the home-page post list.

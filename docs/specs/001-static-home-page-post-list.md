@@ -3,7 +3,7 @@
 ---
 **Status:** Implemented
 **Created:** 2026-10-10
-**Last Updated:** 2026-10-10
+**Last Updated:** 2026-10-12
 ---
 
 
@@ -25,8 +25,8 @@ while keeping the source and generated output separate.
 A POSIX shell script can use Pandoc's YAML metadata support to generate post
 pages and a useful home page from the Markdown files already stored directly in
 `content/`. The metadata fields `title` and `date` provide displayed post
-information, while `tags` can be shown on each post without requiring a larger
-generator framework.
+information, while accepting optional `tags` metadata without requiring a
+larger generator framework.
 
 ## Scope
 
@@ -34,7 +34,7 @@ generator framework.
 - Require YAML front matter with a non-empty `title` and `date`; accept an
 optional list of `tags`.
 - Generate a corresponding page at `public/<filename>.html` using the title,
-date, tags, and converted Markdown body.
+date, and converted Markdown body; accept but do not render optional tags.
 - Generate `public/index.html` with links and dates for all posts, sorted by
 filename in descending order so newer date-prefixed posts appear first.
 - Produce a clear empty state when there are no posts.
@@ -73,8 +73,8 @@ cleaning.
 The data flow is: enumerate `content/*.md` in descending filename order, let Pandoc read
 each post's YAML front matter, convert its Markdown body to HTML, and render the
 post page and home-page entry from the metadata and converted content. Use
-`title` and `date` in the post page and index; show `tags` on the post page when
-present. Use the source filename (without `.md`) as the output page slug. Do not
+`title` and `date` in the post page and index; ignore optional `tags` metadata.
+Use the source filename (without `.md`) as the output page slug. Do not
 parse YAML by extracting values with shell text substitutions.
 
 There is no interactive UI, cancellation flow, or permission prompt. A build
@@ -88,8 +88,8 @@ with a useful diagnostic rather than report success.
 `date`, when the site is built, then its static page displays those values and
 the converted body, and `public/index.html` links to it using the title and
 shows its date.
-- [ ] Given a post with a `tags` list, when its page is generated, then the tags
-are displayed there and no tag pages or filtering are generated.
+- [ ] Given a post with a `tags` list, when its page is generated, then no tags
+are displayed and no tag pages or filtering are generated.
 - [ ] Given multiple valid posts with date-prefixed filenames, when the site is
 built repeatedly, then the home-page links appear newest-first and the generated output is
 reproducible.
@@ -107,7 +107,7 @@ the build fails and does not report a successful build.
 
 Run the build from a clean output directory using the existing post, which has
 `title` and `date` metadata and representative Markdown formatting. Inspect the
-generated page, rendered tags when present, and home-page link; then rebuild and
+generated page, confirm tags are not rendered, and check the home-page link; then rebuild and
 compare the output for determinism. Also run the empty-posts case, cases with
 missing required metadata and malformed front matter, and a build with the
 converter unavailable to verify the empty state and failure diagnostics. No
@@ -119,6 +119,5 @@ device-specific behavior.
 - Descending filename ordering is deterministic and matches publication order
 when post filenames begin with their publication dates; it does not sort by
 the date metadata when that differs from the filename.
-- Confirm the date display format and whether tags should appear on the home
-page in a later iteration; this spec limits tag display to individual post
-pages.
+- Confirm whether tags should be displayed in a later iteration; they are
+currently accepted as metadata but ignored during rendering.
