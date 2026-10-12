@@ -3,7 +3,7 @@
 ---
 **Status:** Implemented
 **Created:** 2026-10-11
-**Last Updated:** 2026-10-11
+**Last Updated:** 2026-10-12
 ---
 
 ## Outcome
@@ -11,7 +11,10 @@
 Readers can choose a site-wide font style and light or dark appearance from a
 compact picker in the header on both the home page and post pages. Choices are
 remembered in that browser, and a saved dark theme is applied before the page's
-stylesheet can paint the light theme.
+stylesheet can paint the light theme. The default typography uses a 16px
+Helvetica Neue-compatible sans-serif stack with a 1.5 line-height. The dark
+theme uses softened charcoal backgrounds, and links use Tumblr's `#4EA3D0`
+blue without underlines.
 
 ## Problem
 
@@ -32,9 +35,12 @@ service.
   Default preview uses the blue accent and the other previews use the current
   text color.
 - Apply the selected font style site-wide while keeping code blocks readable and
-  monospaced.
+  monospaced. The default style uses a Helvetica Neue-compatible sans-serif
+  stack, 16px base size, 1.5 line-height, and antialiased rendering.
 - Offer a Light/Dark switch in an Appearance section. Apply theme-aware colors
   to page backgrounds, text, links, header and footer borders, and the picker.
+- Keep the dark page and picker surfaces neutral charcoal rather than near-black;
+  use `#4EA3D0` for links in both themes and omit link underlines.
 - Persist font and theme choices in browser `localStorage` and reuse them on
   the home page and post pages.
 - Keep one picker markup source in `templates/font-picker.html`, rendered into
@@ -85,11 +91,15 @@ and reload a page while observing its first rendered frame.
   picker, then it shows Default, Serif, and Mono previews plus the Appearance
   theme switch.
 - [ ] Given any font choice, when the reader selects it, then page text changes
-  immediately, the selected choice is announced as pressed, and the choice is
-  restored on both page types after navigation or reload.
+  immediately, the selected choice is visibly highlighted and announced as
+  pressed, and the choice is restored on both page types after navigation or
+  reload.
 - [ ] Given either theme, when the reader changes the switch, then the page,
   header, footer, links, and picker update immediately and the choice persists
   across page navigation and reload.
+- [ ] Given the dark theme is active, when the page renders, then its page and
+  picker surfaces use softened charcoal backgrounds and its links use
+  `#4EA3D0` without underlines.
 - [ ] Given Dark is saved, when the reader reloads a page, then the saved dark
   theme is applied before the stylesheet is evaluated and no light-theme frame
   appears after the page begins rendering.
