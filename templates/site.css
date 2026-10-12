@@ -6,7 +6,7 @@
   --muted-color: #555;
   --border-color: #d9dedb;
   --hover-bg: #eef1ef;
-  --link-color: #145a55;
+  --link-color: #4EA3D0;
   --inline-code-bg: #f1f0ef;
   --inline-code-color: #c84b45;
   color: var(--text-color);
@@ -25,7 +25,7 @@
   --muted-color: #aeb6b1;
   --border-color: #414a45;
   --hover-bg: #343d38;
-  --link-color: #8dcac0;
+  --link-color: #4EA3D0;
   --inline-code-bg: #393431;
   --inline-code-color: #f08a80;
 }
@@ -283,12 +283,7 @@ pre {
 
 a {
   color: var(--link-color);
-  text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.14em;
-}
-
-a:hover {
-  text-decoration-thickness: 0.14em;
+  text-decoration: none;
 }
 
 a:focus-visible {
