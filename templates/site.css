@@ -30,6 +30,18 @@
   --inline-code-bg: #393431;
   --code-block-bg: #393d3a;
   --inline-code-color: #f08a80;
+  --syntax-error-color: #ff9292;
+  --syntax-comment-color: #9eaaa6;
+  --syntax-attribute-color: #e7c77c;
+  --syntax-number-color: #8ed8bd;
+  --syntax-keyword-color: #ffad87;
+  --syntax-special-color: #9bc8ff;
+  --syntax-constant-color: #f2a0a0;
+  --syntax-function-color: #9ec2ff;
+  --syntax-operator-color: #d6ddd9;
+  --syntax-preprocessor-color: #e6c77c;
+  --syntax-string-color: #b6d692;
+  --syntax-variable-color: #d5b7f5;
 }
 
 :root[data-font-style="serif"] {
@@ -355,4 +367,68 @@ video {
   height: auto;
   margin-inline: auto;
   max-width: 100%;
+}
+
+:root[data-theme="dark"] code span.al,
+:root[data-theme="dark"] code span.er {
+  color: var(--syntax-error-color);
+}
+
+:root[data-theme="dark"] code span.an,
+:root[data-theme="dark"] code span.co,
+:root[data-theme="dark"] code span.cv,
+:root[data-theme="dark"] code span.do,
+:root[data-theme="dark"] code span.in,
+:root[data-theme="dark"] code span.wa {
+  color: var(--syntax-comment-color);
+}
+
+:root[data-theme="dark"] code span.at,
+:root[data-theme="dark"] code span.dt {
+  color: var(--syntax-attribute-color);
+}
+
+:root[data-theme="dark"] code span.bn,
+:root[data-theme="dark"] code span.dv,
+:root[data-theme="dark"] code span.fl {
+  color: var(--syntax-number-color);
+}
+
+:root[data-theme="dark"] code span.cf,
+:root[data-theme="dark"] code span.im,
+:root[data-theme="dark"] code span.kw,
+:root[data-theme="dark"] code span.ot {
+  color: var(--syntax-keyword-color);
+}
+
+:root[data-theme="dark"] code span.ch,
+:root[data-theme="dark"] code span.sc,
+:root[data-theme="dark"] code span.vs {
+  color: var(--syntax-special-color);
+}
+
+:root[data-theme="dark"] code span.cn {
+  color: var(--syntax-constant-color);
+}
+
+:root[data-theme="dark"] code span.bu,
+:root[data-theme="dark"] code span.fu {
+  color: var(--syntax-function-color);
+}
+
+:root[data-theme="dark"] code span.op {
+  color: var(--syntax-operator-color);
+}
+
+:root[data-theme="dark"] code span.pp {
+  color: var(--syntax-preprocessor-color);
+}
+
+:root[data-theme="dark"] code span.ss,
+:root[data-theme="dark"] code span.st {
+  color: var(--syntax-string-color);
+}
+
+:root[data-theme="dark"] code span.va {
+  color: var(--syntax-variable-color);
 }
