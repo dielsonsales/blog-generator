@@ -8,6 +8,7 @@
   --hover-bg: #eef1ef;
   --link-color: #4EA3D0;
   --inline-code-bg: #f1f0ef;
+  --code-block-bg: #f3f4f3;
   --inline-code-color: #c84b45;
   color: var(--text-color);
   background: var(--page-bg);
@@ -27,6 +28,7 @@
   --hover-bg: #343d38;
   --link-color: #4EA3D0;
   --inline-code-bg: #393431;
+  --code-block-bg: #393d3a;
   --inline-code-color: #f08a80;
 }
 
@@ -318,9 +320,25 @@ code {
 }
 
 pre {
+  background: var(--code-block-bg);
+  border-radius: 4px;
   max-width: 100%;
   overflow-x: auto;
   font-size: 0.9rem; /* monospace fonts can look too large otherwise */
+  padding: 1rem;
+}
+
+/* Pandoc scrolls this wrapper, so keep the block surface here to clip overflow. */
+div.sourceCode {
+  background: var(--code-block-bg);
+  border-radius: 4px;
+}
+
+/* Let the wrapper scroll instead of creating a nested scroll area. */
+div.sourceCode pre.sourceCode {
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
 }
 
 pre code {
