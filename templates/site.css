@@ -19,8 +19,8 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page-bg: #191c1a;
-  --surface-bg: #222725;
+  --page-bg: #292c2a;
+  --surface-bg: #323533;
   --text-color: #e6e9e7;
   --muted-color: #aeb6b1;
   --border-color: #414a45;
