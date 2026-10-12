@@ -11,9 +11,9 @@
   --inline-code-color: #c84b45;
   color: var(--text-color);
   background: var(--page-bg);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 18px;
-  line-height: 1.65;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 :root[data-theme="dark"] {
@@ -145,7 +145,7 @@ footer > a {
 
 .font-sample--default {
   color: #2583e5;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .font-sample--serif {
